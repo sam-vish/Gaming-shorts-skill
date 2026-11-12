@@ -1,0 +1,36 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #070707; }
+    #pr-doc { left: 64px; top: 290px; width: 952px; min-height: 560px; font-size: 40px; line-height: 1.4; }
+    #pr-doc span { visibility: hidden; }
+    #pr-doc span.k { color: #df4f07; }
+    #pr-go { position: absolute; left: 776px; top: 900px; background: #df4f07; color: #ffffff; padding: 14px 40px; font: 700 44px "JetBrains Mono"; }
+  </style>
+  <div id="root" data-composition-id="prompt" data-width="1080" data-height="1920">
+    <div id="pr-t0" class="sh-tag clip" data-start="0" data-duration="13.38" data-track-index="1">CH.2 · THE PROMPT</div>
+    <div id="pr-doc" class="sh-doc clip" data-start="0.05" data-duration="13.33" data-track-index="2"><b>PROMPT #1</b><p id="pr-p"></p></div>
+    <div id="pr-go" class="clip" data-start="12.3" data-duration="1.08" data-track-index="3">SEND</div>
+    <audio id="pr-s0" class="clip" src="assets/audio/typing.mp3" data-start="1.17" data-duration="1.54" data-track-index="20" data-volume="0.28"></audio>
+    <audio id="pr-s1" class="clip" src="assets/audio/typing.mp3" data-start="3.33" data-duration="1.54" data-track-index="21" data-volume="0.28"></audio>
+    <audio id="pr-s2" class="clip" src="assets/audio/typing.mp3" data-start="5.54" data-duration="1.54" data-track-index="22" data-volume="0.28"></audio>
+    <audio id="pr-s3" class="clip" src="assets/audio/typing.mp3" data-start="7.86" data-duration="1.54" data-track-index="23" data-volume="0.28"></audio>
+    <audio id="pr-s4" class="clip" src="assets/audio/typing.mp3" data-start="11.17" data-duration="1.54" data-track-index="24" data-volume="0.28"></audio>
+    <audio id="pr-s5" class="clip" src="assets/audio/click.mp3" data-start="12.9" data-duration="0.36" data-track-index="25" data-volume="0.6"></audio>
+  </div>
+  <script>
+    (function () {
+      // The prompt types out word by word, in step with the voice; the asks that matter are in the accent.
+      const W = [["Port", 1.12], ["doomgeneric", 1.57], ["to", 2.14], ["Google", 2.24], ["Sheets.", 2.52], ["Render", 3.28], ["every", 3.57, 1], ["pixel", 3.79, 1],
+        ["as", 4.1], ["a", 4.21], ["spreadsheet", 4.27, 1], ["cell,", 4.7, 1], ["map", 5.49], ["keyboard", 5.78, 1], ["controls", 6.17, 1], ["to", 6.61], ["player", 6.74],
+        ["movement,", 7.01], ["and", 7.81], ["use", 8.02], ["Apps", 8.26, 1], ["Script", 8.52, 1], ["to", 8.84], ["update", 8.95], ["the", 9.31], ["game", 9.42], ["in", 9.67],
+        ["real", 9.8, 1], ["time.", 10.04, 1], ["Make", 11.12], ["it", 11.39], ["actually", 11.59, 1], ["playable.", 12.19, 1]];
+      document.getElementById("pr-p").innerHTML = W.map(([w, , k], i) => `<span id="pr-w${i}"${k ? ' class="k"' : ""}>${w}</span>`).join(" ");
+      const tl = gsap.timeline({ paused: true });
+      W.forEach(([, t], i) => tl.set("#pr-w" + i, { visibility: "visible" }, t + 0.05));
+      tl.fromTo("#pr-go", { scale: 1.4 }, { scale: 1, duration: 0.12, ease: "steps(3)" }, 12.3);
+      tl.fromTo("#pr-go", { y: 0 }, { y: 8, duration: 0.1, ease: "steps(2)", yoyo: true, repeat: 1, immediateRender: false }, 12.9);
+      tl.to({}, { duration: 13.38 }, 0);
+      window.__timelines["prompt"] = tl;
+    })();
+  </script>
+</template>

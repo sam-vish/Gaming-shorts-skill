@@ -1,0 +1,33 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #070707; }
+    .st-r { position: absolute; left: 64px; width: 952px; height: 200px; background: #ffffff; color: #070707; }
+    .st-r b { position: absolute; left: 28px; top: 18px; font: 170px/1 "League Gothic"; font-weight: 400; }
+    .st-r i { position: absolute; left: 330px; top: 74px; font: 700 40px "JetBrains Mono"; font-style: normal; }
+  </style>
+  <div id="root" data-composition-id="stats" data-width="1080" data-height="1920">
+    <div id="st-t0" class="sh-tag clip" data-start="0" data-duration="9.71" data-track-index="1">CH.6 · THE RECEIPTS</div>
+    <div id="st-r0" class="st-r clip" data-start="1.03" data-duration="8.68" data-track-index="2" style="top:290px"><b id="st-n0">0</b><i>MINUTES</i></div>
+    <div id="st-r1" class="st-r clip" data-start="2.1" data-duration="7.61" data-track-index="3" style="top:520px"><b id="st-n1">0</b><i>AI PROMPTS</i></div>
+    <div id="st-r2" class="st-r clip" data-start="3.85" data-duration="5.86" data-track-index="4" style="top:750px"><b id="st-n2">0</b><i>LINES (APPROX.),<br>ALL AI-GENERATED</i></div>
+    <div id="st-c" class="sh-card sh-hot clip" data-start="6.97" data-duration="2.74" data-track-index="5" style="top:985px;font-size:110px">SPREADSHEET = CONSOLE</div>
+    <audio id="st-s0" class="clip" src="assets/audio/pop.mp3" data-start="1.03" data-duration="0.7" data-track-index="20" data-volume="0.5"></audio>
+    <audio id="st-s1" class="clip" src="assets/audio/pop.mp3" data-start="2.1" data-duration="0.7" data-track-index="21" data-volume="0.5"></audio>
+    <audio id="st-s2" class="clip" src="assets/audio/pop.mp3" data-start="3.85" data-duration="0.7" data-track-index="22" data-volume="0.5"></audio>
+    <audio id="st-s3" class="clip" src="assets/audio/pop.mp3" data-start="6.97" data-duration="0.49" data-track-index="23" data-volume="0.5"></audio>
+  </div>
+  <script>
+    (function () {
+      // The build in three numbers, each counting up in hard steps.
+      const tl = gsap.timeline({ paused: true });
+      [[42, 1.03, ""], [12, 2.1, ""], [340, 4.33, ""]].forEach(([v, t, p], k) => {
+        const el = document.getElementById("st-n" + k), o = { v: 0 };
+        tl.fromTo(o, { v: 0 }, { v, duration: 0.5, ease: "steps(8)", onUpdate: () => (el.textContent = p + Math.round(o.v)) }, t);
+      });
+      ["#st-r0", "#st-r1", "#st-r2"].forEach((s, k) => tl.fromTo(s, { x: -1000 }, { x: 0, duration: 0.15, ease: "steps(3)" }, [1.03, 2.1, 3.85][k]));
+      tl.fromTo("#st-c", { scale: 1.5 }, { scale: 1, duration: 0.12, ease: "steps(3)" }, 6.97);
+      tl.to({}, { duration: 9.71 }, 0);
+      window.__timelines["stats"] = tl;
+    })();
+  </script>
+</template>

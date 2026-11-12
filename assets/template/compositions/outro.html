@@ -1,0 +1,24 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #070707; }
+    #ot-cv { position: absolute; left: 0; top: 0; width: 1080px; height: 1150px; image-rendering: pixelated; }
+    #ot-f { position: absolute; left: 60px; top: 220px; font-family: "League Gothic"; font-size: 330px; line-height: 0.86; color: #ffffff; background: #070707; padding: 12px 30px 0; }
+    #ot-l { position: absolute; left: 66px; top: 540px; font-family: "JetBrains Mono"; font-weight: 700; font-size: 38px; color: #070707; background: #efefc7; padding: 8px 18px; }
+  </style>
+  <div id="root" data-composition-id="outro" data-width="1080" data-height="1920">
+    <canvas id="ot-cv" width="1080" height="1150"></canvas>
+    <div id="ot-f" class="clip" data-start="0.15" data-duration="3.48" data-track-index="2">FOLLOW</div>
+    <div id="ot-l" class="clip" data-start="0.9" data-duration="2.73" data-track-index="1">MORE WAYS GAMES LIE</div>
+    <audio id="ot-s1" class="clip" src="assets/audio/pop.mp3" data-start="0.15" data-duration="0.5" data-track-index="20" data-volume="0.6"></audio>
+  </div>
+  <script>
+    (function () {
+      // Sign-off: the DOOM fire, already burning.
+      const tl = gsap.timeline({ paused: true });
+      const ctx = document.getElementById("ot-cv").getContext("2d");
+      const sim = DF.Sim({ w: 54, h: 58, seed: 19, warm: 90 });
+      DF.drive(tl, 3.63, (t) => DF.color(ctx, sim.at(Math.floor(t * 20)), 54, 58, 0, 0, 1080, 1160));
+      window.__timelines["outro"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,43 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #070707; }
+    #fa-box { position: absolute; inset: 0; }
+    #fa-box .sh-win { left: 90px; }
+    .fa-pop { position: absolute; left: 150px; width: 780px; border: 6px solid #070707; }
+  </style>
+  <div id="root" data-composition-id="fail" data-width="1080" data-height="1920">
+    <div id="fa-t0" class="sh-tag clip" data-start="0" data-duration="12.4" data-track-index="1">CH.3 · ATTEMPT #1</div>
+    <div id="fa-box" class="clip" data-start="0" data-duration="12.4" data-track-index="2"></div>
+    <div id="fa-a" class="sh-card sh-hot clip" data-start="1.34" data-duration="1.7" data-track-index="3" style="top:985px">ABSOLUTE DISASTER.</div>
+    <div id="fa-e" class="sh-doc fa-pop clip" data-layout-allow-overlap data-start="3.78" data-duration="1.68" data-track-index="4" style="top:470px"><b>SHEET NOT RESPONDING</b>wait... or close it?</div>
+    <div id="fa-c0" class="sh-doc fa-pop clip" data-layout-allow-overlap data-start="5.46" data-duration="5.41" data-track-index="5" style="top:470px"><b>ONE CELL AT A TIME</b>cell.setBackground(color)<br>// again. and again. and again.</div>
+    <div id="fa-c1" class="sh-doc fa-pop clip" data-layout-allow-overlap data-start="10.87" data-duration="1.53" data-track-index="6" style="top:470px"><b>ONE CALL, WHOLE FRAME</b>range.setBackgrounds(frame)</div>
+    <div id="fa-x" class="sh-card clip" data-start="3.04" data-duration="2.42" data-track-index="7" style="top:985px">IT FROZE.</div>
+    <div id="fa-n" class="sh-card clip" data-start="5.87" data-duration="4.12" data-track-index="8" style="top:985px">THOUSANDS OF CELLS</div>
+    <div id="fa-s" class="sh-card sh-hot clip" data-start="9.99" data-duration="0.88" data-track-index="9" style="top:985px">STOP.</div>
+    <div id="fa-b" class="sh-card clip" data-start="10.87" data-duration="1.53" data-track-index="10" style="top:985px">BATCH IT.</div>
+    <audio id="fa-s0" class="clip" src="assets/audio/key-press.mp3" data-start="0.3" data-duration="0.43" data-track-index="20" data-volume="0.35"></audio>
+    <audio id="fa-s1" class="clip" src="assets/audio/key-press.mp3" data-start="0.9" data-duration="0.43" data-track-index="21" data-volume="0.35"></audio>
+    <audio id="fa-s2" class="clip" src="assets/audio/glitch-1.mp3" data-start="1.34" data-duration="1.0" data-track-index="22" data-volume="0.4"></audio>
+    <audio id="fa-s3" class="clip" src="assets/audio/glitch-1.mp3" data-start="3.78" data-duration="1.2" data-track-index="23" data-volume="0.35"></audio>
+    <audio id="fa-s4" class="clip" src="assets/audio/pop.mp3" data-start="5.46" data-duration="0.7" data-track-index="24" data-volume="0.5"></audio>
+    <audio id="fa-s5" class="clip" src="assets/audio/glitch-1.mp3" data-start="9.99" data-duration="0.6" data-track-index="25" data-volume="0.4"></audio>
+    <audio id="fa-s6" class="clip" src="assets/audio/pop.mp3" data-start="10.87" data-duration="0.49" data-track-index="26" data-volume="0.5"></audio>
+  </div>
+  <script>
+    (function () {
+      // Attempt one: random colours crawl in cell by cell until the sheet locks up; then the batched call.
+      const sh = SH.sheet(document.getElementById("fa-box"), { cols: 96, rows: 60, cell: 9 });
+      const tl = gsap.timeline({ paused: true });
+      const st = { n: 0 };
+      const draw = () => sh.draw({ mode: "noise", n: Math.floor(st.n), sel: true });
+      tl.fromTo(st, { n: 0 }, { n: 110, duration: 3.78, ease: "none", onUpdate: draw }, 0);
+      tl.fromTo({ f: 0 }, { f: 0 }, { f: 1, duration: 8.62, onUpdate: draw }, 3.78);
+      ["#fa-a", "#fa-e", "#fa-c0", "#fa-c1", "#fa-x", "#fa-n", "#fa-s", "#fa-b"].forEach((s, k) =>
+        tl.fromTo(s, { scale: 1.5 }, { scale: 1, duration: 0.12, ease: "steps(3)" }, [1.34, 3.78, 5.46, 10.87, 3.04, 5.87, 9.99, 10.87][k]));
+      tl.fromTo(sh.win, { x: 0 }, { x: 14, duration: 0.06, ease: "steps(1)", yoyo: true, repeat: 5, immediateRender: false }, 3.78);
+      tl.to({}, { duration: 12.4 }, 0);
+      window.__timelines["fail"] = tl;
+    })();
+  </script>
+</template>
